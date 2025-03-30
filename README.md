@@ -87,3 +87,46 @@ tqdm = "^4.0.0"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+# Sample Dockerfile content (for reference)
+dockerfile = '''
+FROM python:3.9-slim
+WORKDIR /app
+COPY . /app
+RUN pip install poetry && poetry config virtualenvs.create false && poetry install --no-dev
+CMD ["python", "main.py"]
+'''
+
+# Sample docker-compose.yml content (for reference)
+docker_compose = '''
+version: "3.8"
+services:
+  agent:
+    build: .
+    container_name: agent_system
+    volumes:
+      - .:/app
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+'''
+
+# Sample pyproject.toml content (for reference)
+pyproject = '''
+[tool.poetry]
+name = "agent_system"
+version = "0.1.0"
+description = "Agent System for KMMLU evaluation"
+authors = ["Your Name <your.email@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pandas = "^1.3.0"
+openai = "^0.27.0"
+numpy = "^1.21.0"
+scikit-learn = "^1.0.0"
+tqdm = "^4.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+'''
